@@ -1,20 +1,18 @@
 import { AccountCircleRounded, LocationOn, SearchOutlined } from "@mui/icons-material";
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, BottomNavigation, BottomNavigationAction, Box, Button, Container, Divider, Drawer, IconButton, InputBase, List, ListItem, ListItemButton, ListItemText, Paper, Toolbar, Typography, alpha, styled } from "@mui/material";
+import { AppBar, BottomNavigation, BottomNavigationAction, Box, Button, Container, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Paper, Toolbar, Typography, alpha, styled } from "@mui/material";
 import React, { ReactElement, useContext } from "react";
 import { BookMarkNavBtn } from "./BottomNavButtons/BookMarkNav";
 import { HomeNavBtn } from "./BottomNavButtons/HomeNav";
 import { ProfileNavBtn } from "./BottomNavButtons/ProfileNav";
 import { SearchNavBtn } from "./BottomNavButtons/SearchNav";
+import { CardsComponent } from "./CardsComponent";
 import { CarouselImg, Display } from "./Carousel";
 import { ChooseLocation } from "./ChooseLocation";
-import { FilterSvg } from "./FilterSvg";
-import { InstFarmIcon } from "./instaFramIcon";
-import { Actions, BottamNav, Context } from "./reducer";
-import { CardsComponent } from "./CardsComponent";
 import { Destinations } from "./Destinations";
 import { Headings } from "./Headings";
 import { FooterMobile } from "./MobileFooter";
+import { Actions, BottamNav, Context } from "./reducer";
 
 const StyledDiv = styled("div")(({ theme }) => ({
     position: "relative",
@@ -51,6 +49,7 @@ export const MobileApp = (): ReactElement => {
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
     };
+
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
             <Typography variant="h6" sx={{ my: 2 }}>
@@ -68,6 +67,7 @@ export const MobileApp = (): ReactElement => {
             </List>
         </Box>
     );
+
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>
@@ -87,7 +87,7 @@ export const MobileApp = (): ReactElement => {
                             <LocationOn style={{ color: "#8C684D" }}></LocationOn>
                             Location
                         </Typography>
-                        <InstFarmIcon></InstFarmIcon>
+                        <img src="/images/instafarmlogo.svg" alt=""></img>
                     </Toolbar>
                 </AppBar>
                 <nav>
@@ -125,7 +125,8 @@ export const MobileApp = (): ReactElement => {
                             </SearchIconWrapper>
                             <div style={{ textTransform: "none", fontSize: "17px", marginRight: "150px" }}>Search Farm</div>
                         </StyledDiv>
-                        <FilterSvg></FilterSvg></Button>
+                        <img src="/images/filter.svg" alt=""></img>
+                    </Button>
                 </Box>
             </Container>
 
@@ -177,8 +178,8 @@ export const MobileApp = (): ReactElement => {
 
 
             <div style={{ display: "flex" }}>
-                <div style={{ background: "#5DC5CD", width: "50%", height: "150px", borderTopRightRadius: "50px", borderBottomRightRadius: "50px" }}>
-                    <p style={{ color: "#fff", width: "90%", marginLeft: "20px", marginTop: "25px", fontStyle: "Plus Jakarta Sans", fontWeight: "700", textAlign: "left", left: 20 }}>Join our network of happy owners and turn your farm into a high-revenue holiday destination!</p>
+                <div style={{ background: "#5DC5CD", width: "60%", height: "150px", borderTopRightRadius: "50px", borderBottomRightRadius: "50px" }}>
+                    <p style={{ color: "#fff", width: "90%", marginLeft: "20px", marginTop: "15px", fontStyle: "Plus Jakarta Sans", fontWeight: "700", textAlign: "left", left: 20 }}>Join our network of happy owners and turn your farm into a high-revenue holiday destination!</p>
                     <Button style={{ color: 'white', fontStyle: "Plus Jakarta Sans", fontWeight: "700", background: "#8C684D", width: "40%" }}>List Now</Button>
                 </div>
                 <img src="/images/listgif.gif" alt="gif" style={{ width: "50%", height: "150px" }} ></img>

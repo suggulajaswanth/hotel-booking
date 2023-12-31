@@ -11,19 +11,19 @@
     margin-left: 10px;
     border-bottom: 1px solid black;
     display: flex;
-    align-items: center; 
+    align-items: center;
 }
 
 .mmfooter {
     width: 100%;
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: space-between;
 }
 
-.social-media{
+.social-media {
     margin-top: 25px;
     display: flex;
-    align-items: center; 
-    justify-content:space-around;
+    align-items: center;
+    justify-content: space-around;
 }

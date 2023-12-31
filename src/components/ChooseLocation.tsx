@@ -1,4 +1,5 @@
 import { KeyboardArrowDownOutlined, LocationOnRounded, Notifications } from '@mui/icons-material';
+import { Badge, Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -8,7 +9,6 @@ import MenuList from '@mui/material/MenuList';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import * as React from 'react';
-import { Badge, Box } from '@mui/material';
 
 const options = ['Banglore, India', 'Hyderabad, India', 'Vijayawada, India'];
 
@@ -46,10 +46,10 @@ export const ChooseLocation = () => {
 
     return (
         <Box sx={{ flexGrow: 1, marginTop: "70px" }}>
-            <div style={{ marginLeft:"7px",color: "grey",position:"absolute", zIndex:"3" }}>Current location</div>
+            <div style={{ marginLeft: "7px", color: "grey", position: "absolute", zIndex: "3" }}>Current location</div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <ButtonGroup variant="text" ref={anchorRef} aria-label="split button">
-                    <div style={{ display: "inline", marginTop:"20px" }}>
+                    <div style={{ display: "inline", marginTop: "20px" }}>
                         <LocationOnRounded style={{ color: "#8C684D" }}></LocationOnRounded>
                         <Button style={{ border: "none", color: "black", textTransform: "none" }} onClick={handleClick}>{options[selectedIndex]}</Button>
                     </div>
@@ -59,7 +59,7 @@ export const ChooseLocation = () => {
                         aria-expanded={open ? 'true' : undefined}
                         aria-label="select merge strategy"
                         aria-haspopup="menu"
-                        style={{ border: "none", color: "#8C684D",  marginTop:"20px" }}
+                        style={{ border: "none", color: "#8C684D", marginTop: "20px" }}
                         onClick={handleToggle}
                     >
                         <KeyboardArrowDownOutlined />
@@ -105,7 +105,7 @@ export const ChooseLocation = () => {
                 <Box
                     style={{
                         marginLeft: 'auto',
-                        marginTop: "5px",  // Adjusted marginTop
+                        marginTop: "5px",
                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                         padding: '10px',
                         borderRadius: "10px"

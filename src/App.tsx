@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 import './App.css';
-import Home from './components/pages/home';
+import Home from './components/pages/Home';
 import { ComponentReducer, Context, InitialComponentState } from './components/reducer';
 import { Route,  BrowserRouter as Router, Routes } from 'react-router-dom';
 

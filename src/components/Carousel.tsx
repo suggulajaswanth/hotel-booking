@@ -1,10 +1,13 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import Carousel from "react-material-ui-carousel";
-import { ReactElement } from "react";
 import { Box } from "@mui/material";
+import { ReactElement } from "react";
+import Carousel from "react-material-ui-carousel";
 
 interface Picture {
     image: string;
+}
+export interface carouseImgProps {
+    display: Display
 }
 export enum Display {
     BODY = 'body',
@@ -28,11 +31,6 @@ const CustomCarouselItem = ({ item, index, display }: { item: Picture, index: nu
         />)}
     </div>
 );
-
-
-export interface carouseImgProps {
-    display: Display
-}
 
 export const CarouselImg = (props: carouseImgProps): ReactElement => {
     const AllPictures = [[{ image: './images/instaFarmImg.png' },

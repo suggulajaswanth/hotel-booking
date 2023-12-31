@@ -1,7 +1,7 @@
 import { PersonOutlineOutlined } from "@mui/icons-material";
-import { BottamNav, Context } from "../reducer";
 import { Chip } from "@mui/material";
 import { useContext } from "react";
+import { BottamNav, Context } from "../reducer";
 
 export const ProfileNavBtn = ()=>{
     const { state } = useContext(Context);

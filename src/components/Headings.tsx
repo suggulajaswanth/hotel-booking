@@ -4,6 +4,7 @@ export interface heading {
     title: string,
     onclick?: () => void;
 }
+
 export const Headings = (props: heading) => {
     return (
         <Container>

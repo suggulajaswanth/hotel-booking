@@ -2,6 +2,7 @@ import { Box } from "@mui/material"
 import './Destinations.css'
 
 const destinations: string[] = ["Hyderabad", "Banglore", "Vijayawada", "Tenali", "Guntur"]
+
 export const Destinations = () => {
     return (
         <Box

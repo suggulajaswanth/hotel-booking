@@ -12,7 +12,7 @@ export const HomeNavBtn = () => {
                 <Chip icon={<Home style={{ color: "#8C684D" }} />} label="Home" style={{ background: "#FBF0E9" }} />
             }
             {activePage !== BottamNav.HOME &&
-            <Home></Home>}
+                <Home></Home>}
         </div>
     )
 }

@@ -1,8 +1,7 @@
 import { FavoriteBorderOutlined, FavoriteRounded, Star } from '@mui/icons-material';
 import { AspectRatio, Typography } from '@mui/joy';
 import Card from '@mui/joy/Card';
-import { Box, Button } from '@mui/material';
-import * as React from 'react';
+import { Box } from '@mui/material';
 import { useState } from 'react';
 
 const data = [
