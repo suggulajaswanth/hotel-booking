@@ -8,10 +8,10 @@ export const ProfileNavBtn = ()=>{
     const { activePage } = state;
     return (
         <div>
-            {activePage === BottamNav.PROFILE &&
+            {activePage.activePage === BottamNav.PROFILE &&
                 <Chip icon={<PersonOutlineOutlined style={{ color: "#8C684D" }} />} label="Profile" style={{ background: "#FBF0E9" }} />
             }
-            {activePage !== BottamNav.PROFILE &&
+            {activePage.activePage !== BottamNav.PROFILE &&
             <PersonOutlineOutlined></PersonOutlineOutlined>}
         </div>
     )

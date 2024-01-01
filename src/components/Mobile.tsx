@@ -1,72 +1,22 @@
-import { AccountCircleRounded, LocationOn, SearchOutlined } from "@mui/icons-material";
+import { LocationOn, SearchOutlined } from "@mui/icons-material";
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, BottomNavigation, BottomNavigationAction, Box, Button, Container, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Paper, Toolbar, Typography, alpha, styled } from "@mui/material";
-import React, { ReactElement, useContext } from "react";
-import { BookMarkNavBtn } from "./BottomNavButtons/BookMarkNav";
-import { HomeNavBtn } from "./BottomNavButtons/HomeNav";
-import { ProfileNavBtn } from "./BottomNavButtons/ProfileNav";
-import { SearchNavBtn } from "./BottomNavButtons/SearchNav";
+import { AppBar, Box, Button, Container, Drawer, IconButton, Toolbar, Typography, alpha, styled } from "@mui/material";
+import { ReactElement, useContext } from "react";
+import { BottomNavBar } from "./BottomNavBar";
 import { CardsComponent } from "./CardsComponent";
 import { CarouselImg, Display } from "./Carousel";
 import { ChooseLocation } from "./ChooseLocation";
 import { Destinations } from "./Destinations";
 import { Headings } from "./Headings";
 import { FooterMobile } from "./MobileFooter";
-import { Actions, BottamNav, Context } from "./reducer";
-
-const StyledDiv = styled("div")(({ theme }) => ({
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    "&:hover": {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3),
-        width: "auto",
-    },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-}));
+import { MenuPage } from "./pages/Menu";
+import { Actions, Context } from "./reducer";
+import { FilterDrawer } from "./FilterDrawer";
+import { SearchFarm } from "./SearchFarm";
 
 export const MobileApp = (): ReactElement => {
-    const [value, setValue] = React.useState(0);
-    const { dispatch } = useContext(Context);
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const navItems = ['Explore', 'List You Property', 'Why Choose Us', 'Help', 'About us'];
-
-    const handleDrawerToggle = () => {
-        setMobileOpen((prevState) => !prevState);
-    };
-
-    const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-            <Typography variant="h6" sx={{ my: 2 }}>
-                <div style={{ display: "flex", justifyContent: "center" }}><AccountCircleRounded></AccountCircleRounded><div style={{ fontSize: "17px" }}>My Account</div></div>
-            </Typography>
-            <Divider />
-            <List>
-                {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
+    const { state, dispatch } = useContext(Context);
+    const {showMenuPage} = state;
 
     return (
         <div>
@@ -78,7 +28,10 @@ export const MobileApp = (): ReactElement => {
                             edge="start"
                             color="default"
                             aria-label="menu"
-                            onClick={() => setMobileOpen(true)}
+                            onClick={() => dispatch({
+                                type:Actions.SHOW_HIDE_MENU_PAGE,
+                                data: true
+                            })}
                             sx={{ mr: 2 }}
                         >
                             <MenuIcon sx={{ zIndex: 2000 }}></MenuIcon>
@@ -93,8 +46,11 @@ export const MobileApp = (): ReactElement => {
                 <nav>
                     <Drawer
                         variant="temporary"
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
+                        open={showMenuPage}
+                        onClose={() => dispatch({
+                            type: Actions.SHOW_HIDE_MENU_PAGE,
+                            data: false
+                        })}
                         ModalProps={{
                             keepMounted: true,
                         }}
@@ -103,7 +59,7 @@ export const MobileApp = (): ReactElement => {
                             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: "100%" },
                         }}
                     >
-                        {drawer}
+                        <MenuPage></MenuPage>
                     </Drawer>
                 </nav>
             </Box>
@@ -117,17 +73,7 @@ export const MobileApp = (): ReactElement => {
             </Container>
 
             <Container>
-                <Box style={{ marginTop: "10px" }}>
-                    <Button style={{ border: "0.5px solid #878787", width: "90%", padding: "13px 14.583px 14.583px 14.583px", borderRadius: "10px" }}>
-                        <StyledDiv style={{ color: "#878787" }}>
-                            <SearchIconWrapper>
-                                <SearchOutlined></SearchOutlined>
-                            </SearchIconWrapper>
-                            <div style={{ textTransform: "none", fontSize: "17px", marginRight: "150px" }}>Search Farm</div>
-                        </StyledDiv>
-                        <img src="/images/filter.svg" alt=""></img>
-                    </Button>
-                </Box>
+                <SearchFarm></SearchFarm>
             </Container>
 
             <Headings
@@ -193,54 +139,10 @@ export const MobileApp = (): ReactElement => {
             </div>
 
             <Container>
-                <Box sx={{ pb: 7 }}>
-                    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000 }} elevation={3}>
-                        <BottomNavigation
-                            showLabels
-                            value={value}
-                            onChange={(event, newValue) => {
-                                switch (newValue) {
-                                    case 0:
-                                        dispatch({
-                                            type: Actions.SET_ACTIVE_PAGE,
-                                            data: BottamNav.HOME
-                                        })
-                                        break
-                                    case 1:
-                                        dispatch({
-                                            type: Actions.SET_ACTIVE_PAGE,
-                                            data: BottamNav.SEARCH
-                                        })
-                                        break
-                                    case 2:
-                                        dispatch({
-                                            type: Actions.SET_ACTIVE_PAGE,
-                                            data: BottamNav.BOOKMARK
-                                        })
-                                        break
-                                    case 3:
-                                        dispatch({
-                                            type: Actions.SET_ACTIVE_PAGE,
-                                            data: BottamNav.PROFILE
-                                        })
-                                        break
-                                    default:
-                                        dispatch({
-                                            type: Actions.SET_ACTIVE_PAGE,
-                                            data: BottamNav.HOME
-                                        })
-                                }
-                                setValue(newValue);
-                            }}
-                        >
-                            <BottomNavigationAction icon={<HomeNavBtn></HomeNavBtn>} />
-                            <BottomNavigationAction icon={<SearchNavBtn></SearchNavBtn>} />
-                            <BottomNavigationAction icon={<BookMarkNavBtn></BookMarkNavBtn>} />
-                            <BottomNavigationAction icon={<ProfileNavBtn></ProfileNavBtn>} />
-                        </BottomNavigation>
-                    </Paper>
-                </Box>
+                <BottomNavBar></BottomNavBar>
             </Container>
+
+            <FilterDrawer></FilterDrawer>
         </div>
     );
 };

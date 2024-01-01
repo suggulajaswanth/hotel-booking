@@ -9,11 +9,11 @@ export const BookMarkNavBtn = () => {
     const { activePage } = state;
     return (
         <div>
-            {activePage === BottamNav.BOOKMARK &&
+            {activePage.activePage === BottamNav.BOOKMARK &&
                 <Chip icon={<BookmarkOutlined style={{ color: "#8C684D" }} />} label="Book Mark" style={{ background: "#FBF0E9" }} />
             }
-            {activePage !== BottamNav.BOOKMARK &&
+            {activePage.activePage !== BottamNav.BOOKMARK &&
                 <BookmarkOutlined></BookmarkOutlined>}
         </div>
     )
-}
+};

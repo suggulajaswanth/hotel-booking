@@ -8,10 +8,10 @@ export const HomeNavBtn = () => {
     const { activePage } = state;
     return (
         <div>
-            {activePage === BottamNav.HOME &&
+            {activePage.activePage === BottamNav.HOME &&
                 <Chip icon={<Home style={{ color: "#8C684D" }} />} label="Home" style={{ background: "#FBF0E9" }} />
             }
-            {activePage !== BottamNav.HOME &&
+            {activePage.activePage !== BottamNav.HOME &&
                 <Home></Home>}
         </div>
     )

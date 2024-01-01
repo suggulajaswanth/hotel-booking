@@ -1,32 +1,51 @@
-import { SearchOutlined, TuneRounded } from "@mui/icons-material"
-import { Box, Button, ButtonGroup } from "@mui/material"
-import { ReactElement } from "react"
+import { SearchOutlined } from "@mui/icons-material";
+import { Box, Button, alpha, styled } from "@mui/material";
+import { ReactElement, useContext } from "react";
+import { Actions, Context } from "./reducer";
 
+const StyledDiv = styled("div")(({ theme }) => ({
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    "&:hover": {
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+        marginLeft: theme.spacing(3),
+        width: "auto",
+    },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+}));
 export const SearchFarm = (): ReactElement => {
+    const { dispatch } = useContext(Context);
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <Button>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <ButtonGroup variant="text" style={{ marginTop: "10px" }} aria-label="split button">
-                        <div style={{ display: "inline" }}>
-                            <SearchOutlined sx={{ marginRight: "40px" }}></SearchOutlined>
-                            <Button style={{ border: "none", color: "black", textTransform: "none" }}>Search Farm</Button>
-                        </div>
-
-                    </ButtonGroup>
-                    <Box
-                        style={{
-                            marginLeft: 'auto',
-                            marginTop: "15px",
-                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                            padding: '10px',
-                            borderRadius: "10px"
-                        }}
-                    >
-                        <TuneRounded sx={{ background: "#8C684D", color: "white", borderRadius: "3px", justifyItems: "right" }}></TuneRounded>
-                    </Box>
-                </div>
+        <Box style={{ marginTop: "10px" }} onClick={() => {
+            dispatch({
+                type: Actions.SHOW_HIDE_FILTER_PAGE,
+                data: true
+            })
+        }}>
+            <Button style={{ border: "0.5px solid #878787", width: "90%", padding: "13px 14.583px 14.583px 14.583px", borderRadius: "10px" }}>
+                <StyledDiv style={{ color: "#878787" }}>
+                    <SearchIconWrapper>
+                        <SearchOutlined></SearchOutlined>
+                    </SearchIconWrapper>
+                    <div style={{ textTransform: "none", fontSize: "17px", marginRight: "150px" }}>Search Farm</div>
+                </StyledDiv>
+                <img src="/images/filter.svg" alt=""></img>
             </Button>
-        </Box >
+        </Box>
     )
 };
