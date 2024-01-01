@@ -23,7 +23,7 @@ export const InitialComponentState: ComponentVisbilityState = {
     login: false,
     activePage: { activePage: BottamNav.HOME, activeValue: 0 },
     showMenuPage: false,
-    showFilterPage: true
+    showFilterPage: false
 };
 
 export type ComponentDispatchAction = {
