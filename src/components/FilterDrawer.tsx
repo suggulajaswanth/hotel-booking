@@ -1,8 +1,9 @@
 import { Star } from "@mui/icons-material";
-import { AppBar, Box, Container, Drawer, Grid, IconButton, Slider, TextField, ThemeProvider, ToggleButton, ToggleButtonGroup, Toolbar, Typography, createTheme } from "@mui/material";
-import { ReactElement, useContext, useState } from "react";
-import { Actions, Context } from "./reducer";
+import { AppBar, BottomNavigation, BottomNavigationAction, Box, Button, Checkbox, Container, Drawer, FormControl, FormControlLabel, FormGroup, Grid, IconButton, Paper, Radio, RadioGroup, Slider, TextField, ThemeProvider, ToggleButton, ToggleButtonGroup, Toolbar, Typography, createTheme } from "@mui/material";
+import { brown } from "@mui/material/colors";
+import React, { ReactElement, useContext, useState } from "react";
 import { SortyBy } from "./SortBy";
+import { Actions, Context } from "./reducer";
 
 const backgroundImageUrl = '/images/arrow.svg';
 const theme = createTheme({
@@ -121,10 +122,370 @@ const Rating = (): ReactElement => {
     )
 };
 
+const Counter = (): ReactElement => {
+    const [bedscount, setBedsCount] = useState(0);
+    const [mattressscount, setMattressCount] = useState(0);
+
+    const handleIncrement = () => {
+        setBedsCount(bedscount + 1);
+    };
+
+    const handleDecrement = () => {
+        setBedsCount(Math.max(bedscount - 1, 0));
+    };
+
+    const handleIncrementForMattress = () => {
+        setMattressCount(mattressscount + 1);
+    };
+
+    const handleDecrementForMattress = () => {
+        setMattressCount(Math.max(mattressscount - 1, 0));
+    };
+
+    return (
+        <Grid
+            container
+            spacing={2}
+            sx={{
+                width: "80%",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "auto",
+            }}
+        >
+            <Grid item xs={12}>
+                <h5 style={{ marginBottom: "20px" }}>Rooms and Beds</h5>
+                <div style={{ fontFamily: "Plus Jakarta Sans", fontWeight: "300", fontSize: "18px" }}>No. of Bed Rooms</div>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "space-between", // Aligns items at the start and end of the container
+                        alignItems: "center",
+                        gap: 1,
+                        py: 1,
+                        overflow: "auto",
+                        width: "100%",
+                    }}
+                >
+                    <Box sx={{ display: "flex", gap: 1 }}>
+                        <Button
+                            variant="outlined"
+                            style={{
+                                color: "#8C684D",
+                                border: "1px solid #8C684D",
+                                minWidth: "20px",
+                                minHeight: "20px",
+                                height: "35px",
+                                width: "35px"
+                            }}
+                            onClick={handleDecrement}>
+                            -
+                        </Button>
+                        <Typography variant="h5" sx={{ color: "#8C684D", marginLeft: "10px", marginRight: "10px" }}>
+                            {bedscount}
+                        </Typography>
+                        <Button
+                            variant="outlined"
+                            style={{
+                                color: "#8C684D",
+                                border: "1px solid #8C684D",
+                                minWidth: "20px",
+                                minHeight: "20px",
+                                height: "35px",
+                                width: "35px"
+                            }}
+                            onClick={handleIncrement}>
+                            +
+                        </Button>
+                    </Box>
+                    <img src="/images/bed.svg" alt="bed" style={{ height: "50px" }}></img>
+                </Box>
+                <div style={{ fontFamily: "Plus Jakarta Sans", fontWeight: "300", fontSize: "18px" }}>Beds + Floor Mattress</div>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 1,
+                        py: 1,
+                        overflow: "auto",
+                        width: "100%",
+                    }}
+                >
+                    <Box sx={{ display: "flex", gap: 1 }}>
+
+                        <Button
+                            variant="outlined"
+                            style={{
+                                color: "#8C684D",
+                                border: "1px solid #8C684D",
+                                minWidth: "20px",
+                                minHeight: "20px",
+                                height: "35px",
+                                width: "35px"
+                            }}
+                            onClick={handleDecrementForMattress}
+                        >
+                            -
+                        </Button>
+
+                        <Typography variant="h5" sx={{ color: "#8C684D", marginLeft: "10px", marginRight: "10px" }}>
+                            {mattressscount}
+                        </Typography>
+                        <Button
+                            variant="outlined"
+                            style={{
+                                color: "#8C684D",
+                                border: "1px solid #8C684D",
+                                minWidth: "20px",
+                                minHeight: "20px",
+                                height: "35px",
+                                width: "35px"
+                            }}
+                            onClick={handleIncrementForMattress}>
+                            +
+                        </Button>
+                    </Box>
+                    <img src="/images/mattress.svg" alt="bed" style={{ height: "50px" }}></img>
+                </Box>
+            </Grid>
+        </Grid>
+    );
+};
+
+const Amenties = (): ReactElement => {
+    const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
+
+    const handleButtonClick = (buttonId: any) => {
+        if (selectedButtons.includes(buttonId)) {
+            setSelectedButtons((prevSelected) =>
+                prevSelected.filter((id) => id !== buttonId)
+            );
+        } else {
+            setSelectedButtons((prevSelected) => [...prevSelected, buttonId]);
+        }
+    };
+
+    const renderButtonsInRow = (rowNumber: number, buttonCount: number, titles: string[], icons: string[]) => {
+        const buttons = [];
+
+        for (let i = 1; i <= buttonCount; i++) {
+            const buttonId: string = `row${rowNumber}-button${i}`;
+            buttons.push(
+                <Button
+                    key={buttonId}
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginBottom: "25px",
+                        marginRight: "15px",
+                        color: "black",
+                        border: "0px",
+                        background: selectedButtons.includes(buttonId) ? "#D2B6A2" : "#D9D9D9",
+                        borderRadius: "7.5px",
+                    }}
+                    color="primary"
+                    onClick={() => handleButtonClick(buttonId)}
+                >
+                    <img src={icons[i - 1]} alt="amenties" style={{ height: "20px", marginRight: "15px" }} />
+                    {titles[i - 1]}
+                </Button>
+            );
+        }
+
+        return buttons;
+    };
+
+
+    return (
+        <Grid container spacing={2} sx={{ width: "80%", justifyContent: "center", alignItems: "center", margin: "auto" }}>
+            <Grid item xs={12} sx={{ width: "100%", marginLeft: "0px" }}>
+                <h5 style={{ marginBottom: "20px" }}>Amenties</h5>
+                <Grid item container spacing={5} sx={{ marginLeft: "0px" }} style={{ marginBottom: "25px", marginTop: "20px" }} >
+                    {renderButtonsInRow(1, 3, ["Swimming Pool", "Wifi", "TV"], ["/images/bed.svg", "/images/bed.svg", "/images/bed.svg"])}
+                </Grid>
+                <Grid item container spacing={5} sx={{ marginLeft: "0px" }} style={{ marginBottom: "25px" }} >
+                    {renderButtonsInRow(2, 2, ["Pets Allowed", "For Large Groups"], ["/images/bed.svg", "/images/bed.svg"])}
+                </Grid>
+                <Grid item container spacing={5} sx={{ marginLeft: "0px" }}>
+                    {renderButtonsInRow(3, 2, ["Swimming Pool", "Swimming Pool"], ["/images/bed.svg", "/images/bed.svg"])}
+                </Grid>
+            </Grid>
+
+            <Container>
+                <Box style={{ display: "flex", }}>
+                    <Box
+                        style={{
+                            marginLeft: 'auto',
+                            marginTop: "2px",
+                        }}>
+                        <Button style={{ borderRadius: "7px", border: "1px solid #5DC5CD", textTransform: "none", color: "#8C684D", height: "30px", background: "rgba(93, 197, 205, 0.10)" }}>See all</Button>
+                    </Box>
+                </Box>
+            </Container>
+        </Grid>
+
+    )
+};
+
+const AccessibilityFeatures = (): ReactElement => {
+    const [checkedItems, setCheckedItems] = useState<number[]>([]);
+
+    const handleCheckboxChange = (index: number) => {
+        if (checkedItems.includes(index)) {
+            setCheckedItems(checkedItems.filter(item => item !== index));
+        } else {
+            setCheckedItems([...checkedItems, index]);
+        }
+    };
+
+    return (
+        <Grid container spacing={2} sx={{ width: "80%", justifyContent: "center", alignItems: "center", margin: "auto" }}>
+            <Grid item xs={12}>
+                <h5 style={{ marginBottom: "20px" }}>Accessibility Features</h5>
+                <FormGroup>
+                    {["Step-free guest entrance", "Guest entrance wider than 32 inches", "Accessible parking spot", "Bedroom entrance wider than 32 inches"].map((label, index) => (
+                        <FormControlLabel
+                            key={index}
+                            sx={{
+                                width: "100%",
+                                height: "35px",
+                                background: checkedItems.includes(index) ? "#D2B6A2" : "#EBEBEB",
+                                borderRadius: "6.8px",
+                                marginBottom: "8px",
+                                border: checkedItems.includes(index) ? "1px solid #8C684D" : "0px"
+                            }}
+                            control={<Checkbox
+                                sx={{
+                                    color: brown[800],
+                                    '&.Mui-checked': {
+                                        color: brown[800],
+                                    },
+                                }}
+                                checked={checkedItems.includes(index)}
+                                onChange={() => handleCheckboxChange(index)}
+                            />}
+                            label={label}
+                        />
+                    ))}
+                </FormGroup>
+            </Grid>
+            <Container>
+                <Box style={{ display: "flex", }}>
+                    <Box
+                        style={{
+                            marginLeft: 'auto',
+                            marginTop: "2px",
+                        }}>
+                        <Button style={{ borderRadius: "7px", border: "1px solid #5DC5CD", textTransform: "none", color: "#8C684D", height: "30px", background: "rgba(93, 197, 205, 0.10)" }}>See all</Button>
+                    </Box>
+                </Box>
+            </Container>
+        </Grid>
+    );
+};
+
+const BottomNavButtons = (): ReactElement => {
+    const value = 23;
+    return (
+        <Box sx={{ pb: 7 }}>
+            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000 }} elevation={3}>
+                <BottomNavigation
+                    showLabels
+                    sx={{ justifyContent: 'space-between' }}
+                >
+                    <BottomNavigationAction icon={<Button sx={{ textTransform: "none", color: "#5DC5CD" }}>Clear All</Button>} />
+                    <BottomNavigationAction icon={<Button style={{ color: 'white', fontStyle: "Plus Jakarta Sans", fontWeight: "700", background: "#8C684D", textTransform: "none" }}>Show {value} Results</Button>} />
+                </BottomNavigation>
+            </Paper>
+        </Box>
+    );
+};
+
+const PricePerNight = (): ReactElement => {
+    return (
+        <Grid container spacing={2} sx={{ width: "80%", justifyContent: "center", alignItems: "center", margin: "auto" }}>
+            <Grid item xs={12}>
+                <h5 style={{ marginBottom: "20px" }}>Price Per Night</h5>
+                <FormControl>
+                    <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        name="radio-buttons-group"
+                    >
+                        <FormControlLabel
+                            sx={{ fontFamily: "Plus Jakarta Sans", fontSize: "16px" }}
+                            value="10000"
+                            control={<Radio
+                                sx={{
+                                    color: brown[400],
+                                    '&.Mui-checked': {
+                                        color: brown[400],
+                                    },
+                                }}
+                            />}
+                            label="Under ₹10,000"
+                        />
+                        <FormControlLabel
+                            sx={{ fontFamily: "Plus Jakarta Sans", fontSize: "16px" }}
+                            value="20000"
+                            control={<Radio
+                                sx={{
+                                    color: brown[400],
+                                    '&.Mui-checked': {
+                                        color: brown[400],
+                                    },
+                                }}
+                            />}
+                            label="₹10,000 - ₹20,000"
+                        />
+                        <FormControlLabel
+                            sx={{ fontFamily: "Plus Jakarta Sans", fontSize: "16px" }}
+                            value="35000"
+                            control={<Radio
+                                sx={{
+                                    color: brown[400],
+                                    '&.Mui-checked': {
+                                        color: brown[400],
+                                    },
+                                }}
+                            />}
+                            label="₹20,000 - ₹35,000"
+                        />
+                        <FormControlLabel
+                            sx={{ fontFamily: "Plus Jakarta Sans", fontSize: "16px" }}
+                            value="50000"
+                            control={<Radio
+                                sx={{
+                                    color: brown[400],
+                                    '&.Mui-checked': {
+                                        color: brown[400],
+                                    },
+                                }}
+                            />}
+                            label="₹35,000 - ₹50,000"
+                        />
+                        <FormControlLabel
+                            sx={{ fontFamily: "Plus Jakarta Sans", fontSize: "16px" }}
+                            value="60000"
+                            control={<Radio
+                                sx={{
+                                    color: brown[400],
+                                    '&.Mui-checked': {
+                                        color: brown[400],
+                                    },
+                                }}
+                            />}
+                            label="More than ₹50,000"
+                        />
+                    </RadioGroup>
+                </FormControl>
+            </Grid>
+        </Grid>
+    );
+};
 
 const FilterPage = (): ReactElement => {
     const { dispatch } = useContext(Context);
-
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
@@ -154,17 +515,37 @@ const FilterPage = (): ReactElement => {
                     <RangeSlider></RangeSlider>
                 </Container>
 
-                <Container sx={{ marginTop: "20px" }}>
+                <Container sx={{ marginTop: "10px" }}>
                     <Rating></Rating>
                 </Container>
 
-                <Container sx={{ marginTop: "20px" }}>
+                <Container sx={{ marginTop: "10px" }}>
                     <SortyBy></SortyBy>
+                </Container>
+
+                <Container sx={{ marginTop: "10px" }}>
+                    <Counter></Counter>
+                </Container>
+
+                <Container sx={{ marginTop: "10px" }}>
+                    <Amenties></Amenties>
+                </Container>
+
+                <Container>
+                    <AccessibilityFeatures></AccessibilityFeatures>
+                </Container>
+
+                <Container>
+                    <PricePerNight></PricePerNight>
+                </Container>
+
+                <Container>
+                    <BottomNavButtons></BottomNavButtons>
                 </Container>
             </Box>
         </>
     )
-}
+};
 
 export const FilterDrawer = (): ReactElement => {
     const { state, dispatch } = useContext(Context);
@@ -188,4 +569,4 @@ export const FilterDrawer = (): ReactElement => {
             <FilterPage></FilterPage>
         </Drawer>
     )
-}
+};
