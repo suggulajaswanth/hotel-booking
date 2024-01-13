@@ -3,9 +3,10 @@ import { AppBar, BottomNavigation, BottomNavigationAction, Box, Button, Checkbox
 import { brown } from "@mui/material/colors";
 import React, { ReactElement, useContext, useState } from "react";
 import { SortyBy } from "./SortBy";
-import { Actions, Context } from "./reducer";
+import { Actions, BottamNav, Context } from "./reducer";
 
 const backgroundImageUrl = '/images/arrow.svg';
+
 const theme = createTheme({
     components: {
         MuiSlider: {
@@ -386,6 +387,7 @@ const AccessibilityFeatures = (): ReactElement => {
 };
 
 const BottomNavButtons = (): ReactElement => {
+    const { dispatch } = useContext(Context);
     const value = 23;
     return (
         <Box sx={{ pb: 7 }}>
@@ -395,7 +397,20 @@ const BottomNavButtons = (): ReactElement => {
                     sx={{ justifyContent: 'space-between' }}
                 >
                     <BottomNavigationAction icon={<Button sx={{ textTransform: "none", color: "#5DC5CD" }}>Clear All</Button>} />
-                    <BottomNavigationAction icon={<Button style={{ color: 'white', fontStyle: "Plus Jakarta Sans", fontWeight: "700", background: "#8C684D", textTransform: "none" }}>Show {value} Results</Button>} />
+                    <BottomNavigationAction icon={<Button onClick={() => {
+                        dispatch({
+                            type: Actions.SET_FILTER_DATA,
+                            data: { Date: "2- 10 Oct", Area: "Multiple Areas", GuestCount: 2 }
+                        })
+                        dispatch({
+                            type: Actions.SHOW_HIDE_FILTER_PAGE,
+                            data: false
+                        })
+                        dispatch({
+                            type: Actions.SET_ACTIVE_PAGE,
+                            data: { activePage: BottamNav.SEARCH, activeValue: 1 }
+                        })
+                    }} style={{ color: 'white', fontStyle: "Plus Jakarta Sans", fontWeight: "700", background: "#8C684D", textTransform: "none" }}>Show {value} Results</Button>} />
                 </BottomNavigation>
             </Paper>
         </Box>

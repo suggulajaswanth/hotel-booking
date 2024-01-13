@@ -1,22 +1,24 @@
-import { LocationOn, SearchOutlined } from "@mui/icons-material";
+import { LocationOn } from "@mui/icons-material";
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Box, Button, Container, Drawer, IconButton, Toolbar, Typography, alpha, styled } from "@mui/material";
+import { AppBar, Box, Button, Container, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
 import { ReactElement, useContext } from "react";
 import { BottomNavBar } from "./BottomNavBar";
 import { CardsComponent } from "./CardsComponent";
 import { CarouselImg, Display } from "./Carousel";
 import { ChooseLocation } from "./ChooseLocation";
 import { Destinations } from "./Destinations";
+import { DetailsPage } from "./DetailsPage";
+import { FilterDrawer } from "./FilterDrawer";
 import { Headings } from "./Headings";
 import { FooterMobile } from "./MobileFooter";
-import { MenuPage } from "./pages/Menu";
-import { Actions, Context } from "./reducer";
-import { FilterDrawer } from "./FilterDrawer";
 import { SearchFarm } from "./SearchFarm";
+import { SearchVillas } from "./SearchVillas";
+import { MenuPage } from "./pages/Menu";
+import { Actions, BottamNav, Context } from "./reducer";
 
 export const MobileApp = (): ReactElement => {
     const { state, dispatch } = useContext(Context);
-    const {showMenuPage} = state;
+    const { showMenuPage, activePage } = state;
 
     return (
         <div>
@@ -29,7 +31,7 @@ export const MobileApp = (): ReactElement => {
                             color="default"
                             aria-label="menu"
                             onClick={() => dispatch({
-                                type:Actions.SHOW_HIDE_MENU_PAGE,
+                                type: Actions.SHOW_HIDE_MENU_PAGE,
                                 data: true
                             })}
                             sx={{ mr: 2 }}
@@ -64,49 +66,37 @@ export const MobileApp = (): ReactElement => {
                 </nav>
             </Box>
 
-            <Container>
-                <ChooseLocation />
-            </Container>
+            {activePage.activePage === BottamNav.HOME &&
+                <><Container>
+                    <ChooseLocation />
+                </Container><Container>
+                        <CarouselImg display={Display.BODY}></CarouselImg>
+                    </Container><Container>
+                        <SearchFarm></SearchFarm>
+                    </Container><Headings
+                        title="Pick Your Destination"
+                    ></Headings><Container>
+                        <Destinations></Destinations>
+                    </Container><Headings
+                        title="Nearby your location"
+                    ></Headings><Container>
+                        <CardsComponent></CardsComponent>
+                    </Container><Headings
+                        title="Nearby your location"
+                    ></Headings><Container>
+                        <CardsComponent></CardsComponent>
+                    </Container><Headings
+                        title="Nearby your location"
+                    ></Headings><Container>
+                        <CardsComponent></CardsComponent>
+                    </Container></>
+            }
 
-            <Container>
-                <CarouselImg display={Display.BODY}></CarouselImg>
-            </Container>
-
-            <Container>
-                <SearchFarm></SearchFarm>
-            </Container>
-
-            <Headings
-                title="Pick Your Destination"
-            ></Headings>
-
-            <Container>
-                <Destinations></Destinations>
-            </Container>
-
-            <Headings
-                title="Nearby your location"
-            ></Headings>
-
-            <Container>
-                <CardsComponent></CardsComponent>
-            </Container>
-
-            <Headings
-                title="Nearby your location"
-            ></Headings>
-
-            <Container>
-                <CardsComponent></CardsComponent>
-            </Container>
-
-            <Headings
-                title="Nearby your location"
-            ></Headings>
-
-            <Container>
-                <CardsComponent></CardsComponent>
-            </Container>
+            {activePage.activePage === BottamNav.SEARCH &&
+                <>
+                    <SearchVillas></SearchVillas>
+                </>
+            }
 
             <Headings
                 title="Looking for Events"
@@ -125,7 +115,7 @@ export const MobileApp = (): ReactElement => {
 
             <div style={{ display: "flex" }}>
                 <div style={{ background: "#5DC5CD", width: "60%", height: "150px", borderTopRightRadius: "50px", borderBottomRightRadius: "50px" }}>
-                    <p style={{ color: "#fff", width: "90%", marginLeft: "20px", marginTop: "15px", fontStyle: "Plus Jakarta Sans", fontWeight: "700", textAlign: "left", left: 20 }}>Join our network of happy owners and turn your farm into a high-revenue holiday destination!</p>
+                    <p style={{ color: "#fff", width: "90%", marginLeft: "20px", marginTop: "5px", fontStyle: "Plus Jakarta Sans", fontWeight: "700", textAlign: "left", left: 20, fontSize:"15px"}}>Join our network of happy owners and turn your farm into a high-revenue holiday destination!</p>
                     <Button style={{ color: 'white', fontStyle: "Plus Jakarta Sans", fontWeight: "700", background: "#8C684D", width: "40%" }}>List Now</Button>
                 </div>
                 <img src="/images/listgif.gif" alt="gif" style={{ width: "50%", height: "150px" }} ></img>
@@ -143,6 +133,7 @@ export const MobileApp = (): ReactElement => {
             </Container>
 
             <FilterDrawer></FilterDrawer>
+            <DetailsPage></DetailsPage>
         </div>
     );
 };
