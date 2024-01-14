@@ -24,7 +24,9 @@ export type ComponentVisbilityState = {
     showMenuPage: boolean,
     showFilterPage: boolean,
     filterData: FilterData,
-    showDetailsPage: boolean
+    showDetailsPage: boolean,
+    showBookingsPage: boolean,
+    userLoggedIn: boolean
 };
 
 export const InitialComponentState: ComponentVisbilityState = {
@@ -37,7 +39,9 @@ export const InitialComponentState: ComponentVisbilityState = {
         Date: '',
         Area: ''
     },
-    showDetailsPage:false
+    showDetailsPage:false,
+    showBookingsPage:false,
+    userLoggedIn:false
 };
 
 export type ComponentDispatchAction = {
@@ -54,7 +58,9 @@ export enum Actions {
     SHOW_HIDE_MENU_PAGE,
     SHOW_HIDE_FILTER_PAGE,
     SET_FILTER_DATA,
-    SHOW_HIDE_DETAILS_PAGE
+    SHOW_HIDE_DETAILS_PAGE,
+    SHOW_HIDE_BOOKINGS_PAGE,
+    SET_IS_LOGGGED_IN
 }
 
 export type Dispatch = (
@@ -109,9 +115,20 @@ export const ComponentReducer = (
                 showDetailsPage:action.data as boolean
             }
         }
+        case Actions.SHOW_HIDE_BOOKINGS_PAGE:{
+            return{
+                ...state,
+                showBookingsPage:action.data as boolean
+            }
+        }
+        case Actions.SET_IS_LOGGGED_IN:{
+            return{
+                ...state,
+                userLoggedIn: action.data as boolean
+            }
+        }
     }
 };
 function noop(action: ComponentDispatchAction): void {
     throw new Error('Function not implemented.');
-}
-
+};

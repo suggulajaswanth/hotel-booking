@@ -15,6 +15,7 @@ import { SearchFarm } from "./SearchFarm";
 import { SearchVillas } from "./SearchVillas";
 import { MenuPage } from "./pages/Menu";
 import { Actions, BottamNav, Context } from "./reducer";
+import { BookingsPage } from "./BookingsPage";
 
 export const MobileApp = (): ReactElement => {
     const { state, dispatch } = useContext(Context);
@@ -134,6 +135,7 @@ export const MobileApp = (): ReactElement => {
 
             <FilterDrawer></FilterDrawer>
             <DetailsPage></DetailsPage>
+            <BookingsPage></BookingsPage>
         </div>
     );
 };

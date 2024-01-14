@@ -15,7 +15,6 @@ const data =
 
 const BottomNavButtons = (): ReactElement => {
     const { dispatch } = useContext(Context);
-    const value = 23;
     return (
         <Box sx={{ pb: 7 }}>
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000 }} elevation={3}>
@@ -32,7 +31,12 @@ const BottomNavButtons = (): ReactElement => {
                             </div>
                         </>
                     } />
-                    <BottomNavigationAction icon={<Button
+                    <BottomNavigationAction icon={<Button onClick={() => {
+                        dispatch({
+                            type: Actions.SHOW_HIDE_BOOKINGS_PAGE,
+                            data: true
+                        })
+                    }}
                         style={{ color: 'white', fontStyle: "Plus Jakarta Sans", fontWeight: "700", background: "#8C684D", textTransform: "none" }}>Book Now</Button>} />
                 </BottomNavigation>
             </Paper>
@@ -240,9 +244,9 @@ const AccordionExpandIcon = () => {
             </Grid>
             <div style={{ borderRadius: "10px", background: "#F7F7FB", height: "300px", overflowY: "auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                 {accordionData.map((item, index) => (
-                    <Accordion key={index} sx={{ width: "95%", marginBottom:"5px" }}>
+                    <Accordion key={index} sx={{ width: "95%", marginBottom: "5px" }}>
                         <AccordionSummary
-                            expandIcon={<AddBox sx={{color:"#BFBFBF"}}></AddBox>}
+                            expandIcon={<AddBox sx={{ color: "#BFBFBF" }}></AddBox>}
                             aria-controls={`panel${index + 1}-content`}
                             id={`panel${index + 1}-header`}
                         >
@@ -304,8 +308,6 @@ const Details = (): ReactElement => {
                 <Container>
                     <AccordionExpandIcon></AccordionExpandIcon>
                 </Container>
-
-
 
                 <Container>
                     <BottomNavButtons></BottomNavButtons>
