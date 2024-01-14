@@ -1,6 +1,9 @@
 import { Button, Card, CardHeader, Stack } from "@mui/material"
+import { useContext } from "react";
+import { Actions, Context } from "./reducer";
 
 export const LoggedIn = () => {
+    const {dispatch} = useContext(Context);
     return (
         <>
             <Card sx={{ width: "80%", textAlign: "center", border: "none", boxShadow: "none" }}>
@@ -33,7 +36,13 @@ export const LoggedIn = () => {
                     <div className="menu-btn">Help</div>
                 </div>
             </Stack>
-            <Button sx={{ color: 'white', fontStyle: "Plus Jakarta Sans", fontWeight: "700", background: "#8C684D", width: "40%", border: "none", marginTop: "50px", marginBottom: "30px" }}>Log out</Button>
+            <Button onClick={()=>{
+                dispatch({
+                    type:Actions.SET_IS_LOGGGED_IN,
+                    data:false
+
+                })
+            }}sx={{ color: 'white', fontStyle: "Plus Jakarta Sans", fontWeight: "700", background: "#8C684D", width: "40%", border: "none", marginTop: "50px", marginBottom: "30px" }}>Log out</Button>
         </>
     )
 };

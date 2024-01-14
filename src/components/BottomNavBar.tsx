@@ -50,10 +50,22 @@ export const BottomNavBar = () => {
                         }
                     }}
                 >
-                    <BottomNavigationAction icon={<HomeNavBtn></HomeNavBtn>} />
+                    <BottomNavigationAction onClick={
+                        () => {
+                            dispatch({
+                                type: Actions.SHOW_HIDE_MENU_PAGE,
+                                data: false
+                            })
+
+                        }} icon={<HomeNavBtn></HomeNavBtn>} />
                     <BottomNavigationAction icon={<SearchNavBtn></SearchNavBtn>} />
                     <BottomNavigationAction icon={<BookMarkNavBtn></BookMarkNavBtn>} />
-                    <BottomNavigationAction icon={<ProfileNavBtn></ProfileNavBtn>} />
+                    <BottomNavigationAction onClick={() => {
+                        dispatch({
+                            type: Actions.SHOW_HIDE_MENU_PAGE,
+                            data: true
+                        })
+                    }} icon={<ProfileNavBtn></ProfileNavBtn>} />
                 </BottomNavigation>
             </Paper>
         </Box>
