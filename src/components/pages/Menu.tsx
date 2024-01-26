@@ -32,7 +32,7 @@ export const MenuPage = (): ReactElement => {
                     <img style={{ width: "30%", marginBottom: "50px", marginTop: "50px" }} src="/images/instafarmlogo.svg" alt=""></img>
                     {userLoggedIn &&
                         <LoggedIn></LoggedIn>}
-                    {!userLoggedIn && <LogIn></LogIn>}
+                    {!userLoggedIn && <LogIn isBookingPage={false}></LogIn>}
                 </Box>
             </Box>
             <Container>

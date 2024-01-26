@@ -12,12 +12,17 @@ const Root = styled('div')(({ theme }) => ({
     },
 }));
 
-export const LogIn = () => {
+export interface login {
+    isBookingPage: boolean
+}
+
+export const LogIn = (props:login) => {
     const { dispatch } = useContext(Context);
     return (
         <>
             <Box>
-                <h1>Log in</h1>
+                {!props.isBookingPage && <h1>Log in</h1>}
+                {props.isBookingPage && <h3 style={{textTransform:"none"}}>Log in or sign up to book</h3>}
                 <Autocomplete
                     id="country-select-demo"
                     sx={{ width: 300 }}
@@ -54,23 +59,9 @@ export const LogIn = () => {
                 <TextField
                     sx={{ width: '100%', borderRadius: '0px', marginTop: '15px' }}
                     label="Phone number"
-                >
-                    <p style={{ marginTop: '5px' }}>
-                        We'll call or text you to confirm your number. Standard message and data rates apply.
-                        <Button
-                            style={{
-                                textTransform: 'none',
-                                color: '#000',
-                                fontWeight: 'bold',
-                                textDecoration: 'underline',
-                            }}
-                        >
-                            Privacy Policy
-                        </Button>
-                    </p>
-                </TextField>
+                ></TextField>
             </Box>
-            <p style={{ marginTop: '12px', width: "61%", fontSize: "12px", lineHeight: "1px" }}>
+            <p style={{ marginTop: '12px', width: "61%", fontSize: "11px", lineHeight: "12px" }}>
                 We'll call or text you to confirm your number. Standard message and data rates apply.
                 <Button
                     style={{
@@ -78,6 +69,7 @@ export const LogIn = () => {
                         color: '#000',
                         fontWeight: 'bold',
                         textDecoration: 'underline',
+                        fontSize: "11px"
                     }}
                 >
                     Privacy Policy
@@ -97,10 +89,7 @@ export const LogIn = () => {
                 <Button sx={{ border: "1px solid black", marginRight: "10px", width: "90px" }}><img src='/images/google.svg' alt="googlelogin"></img></Button>
                 <Button sx={{ border: "1px solid black", width: "90px" }}><img src='/images/appleicon.svg' alt="applelogin"></img></Button>
             </div>
-
             <Button sx={{ color: "black", border: "1px solid black", marginTop: "12px", width: "292px", textTransform: "none" }}><img src='/images/mailing.svg' alt="maillogin" style={{ marginRight: "10px" }}></img>Continue with email</Button>
-
-
         </>
     );
 };

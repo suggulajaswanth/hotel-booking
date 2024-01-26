@@ -24,7 +24,7 @@ const BottomNavButtons = (): ReactElement => {
                 >
                     <BottomNavigationAction icon={
                         <>
-                            <Button sx={{ fontSize: "16px", textTransform: "none", color: "#8C684D", fontWeight: "bold" }}>{data.price}</Button>
+                            <div style={{ fontSize: "16px", textTransform: "none", color: "#8C684D", fontWeight: "bold" }}>{data.price}</div>
                             <div style={{ display: "flex", marginRight: "55px", marginTop: "0px" }}>
                                 <Star style={{ color: "#ffd33b", marginRight: "4px", fontSize: "15px" }}></Star>
                                 <div style={{ fontSize: "13px", marginBottom: "10px" }}>5.0</div>
